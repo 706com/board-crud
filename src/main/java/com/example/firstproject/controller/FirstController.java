@@ -11,4 +11,9 @@ public class FirstController {
         model.addAttribute("username","Donghyun"); //변수명 , 변수값
         return "greetings";
     }
+    @GetMapping("/bye")
+    public String seeYouNext(Model model){
+        model.addAttribute("nickname","동현");
+        return "goodbye";
+    }
 }
