@@ -50,4 +50,14 @@ public class MemberController {
         model.addAttribute("memberList",memberList);
         return "members/index";
     }
+
+    @GetMapping("/members/{id}/edit")
+    public String edit(@PathVariable Long id,Model model){
+        // 1. id 로 DB 조회
+        Member memberEntity = memberRepository.findById(id).orElse(null);
+        // 2. model에 등록
+        model.addAttribute("member",memberEntity);
+        // 3. edit 페이지에 데이터 넘기기
+        return "/members/edit";
+    }
 }
