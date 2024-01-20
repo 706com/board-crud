@@ -60,4 +60,17 @@ public class MemberController {
         // 3. edit 페이지에 데이터 넘기기
         return "/members/edit";
     }
+
+    @PostMapping("/members/update")
+    public String update(MemberForm memberForm){
+        // 1. 폼데이터를 엔티티로 변환
+        Member memberEntity = memberForm.toEntity();
+        // 2. 엔티티의 id로 해당 내용을 찾고, DB에 수정데이터 반영
+        Member existEntity = memberRepository.findById(memberEntity.getId()).orElse(null);
+        if(existEntity != null){
+            memberRepository.save(memberEntity);
+        }
+        // 3. 상세페이지로 리다이렉트
+        return "redirect:/members/" + memberEntity.getId();
+    }
 }
