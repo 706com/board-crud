@@ -85,4 +85,72 @@ class ArticleApiControllerTest {
         // 3. 비교 및 검증
         assertEquals(expected,article);
     }
+
+    @Test
+    @Transactional
+    void update_성공_존재하는_id와_title_content가_있는_dto_입력() {
+        // 1. 예상 데이터
+        Long id = 1L;
+        String title = "ABCABC";
+        String content = "1234";
+        ArticleForm dto = new ArticleForm(id,title,content);
+        Article expected = new Article(id,title,content);
+        // 2. 실제 데이터
+        Article article = articleService.update(id,dto);
+        // 3. 비교 및 검증
+        assertEquals(expected.toString(),article.toString());
+    }
+    @Test
+    @Transactional
+    void update_성공_존재하는_id와_title만_있는_dto_입력() {
+        // 1. 예상 데이터
+        Long id = 2L;
+        String title = "ABCABC";
+        String content = null;
+        ArticleForm dto = new ArticleForm(id,title,content);
+        Article expected = new Article(id,title,"2222");
+        // 2. 실제 데이터
+        Article article = articleService.update(id,dto);
+        // 3. 비교 및 검증
+        assertEquals(expected.toString(),article.toString());
+    }
+    @Test
+    @Transactional
+    void update_실패_존재하지_않는_id_입력() {
+        // 1. 예상 데이터
+        Long id = -1L;
+        String title = "ABCABC";
+        String content = "123123";
+        ArticleForm dto = new ArticleForm(id,title,content);
+        Article expected = null;
+        // 2. 실제 데이터
+        Article article = articleService.update(id,dto);
+        // 3. 비교 및 검증
+        assertEquals(expected,article);
+    }
+
+    @Test
+    @Transactional
+    void delete_성공_존재하는_id_입력() {
+        // 1. 예상 데이터
+        Long id = 1L;
+        String title = "가가가가";
+        String content = "1111";
+        Article expected = new Article(id,title,content);
+        // 2. 실제 데이터
+        Article article = articleService.delete(id);
+        // 3. 비교 및 검증
+        assertEquals(expected.toString(),article.toString());
+    }
+    @Test
+    @Transactional
+    void delete_실패_존재하지_않는_id_입력() {
+        // 1. 예상 데이터
+        Long id = -1L;
+        Article expected = null;
+        // 2. 실제 데이터
+        Article article = articleService.delete(id);
+        // 3. 비교 및 검증
+        assertEquals(expected,article);
+    }
 }
