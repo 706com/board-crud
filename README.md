@@ -82,7 +82,7 @@
 > - @RequestBody 는 언제쓰일까요?
 > - ResponseEntity 클래스와 HttpStatus 클래스에 대해 설명해주세요.
 
-### Chapter 12
+### Chapter 12 : 서비스 계층과 트랜잭션
 > - 서비스 계층이란 무엇인가요? 예시를 들어 설명해주세요.
 > - 트랜잭션이란 무엇이며 롤백(rollback)은 무엇인가요?
 
