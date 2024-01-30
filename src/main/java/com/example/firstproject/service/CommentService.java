@@ -22,6 +22,7 @@ public class CommentService {
     @Autowired
     private ArticleRepository articleRepository;
 
+    //댓글 조회
     public List<CommentDto> comments(Long articleId) {
 //        // 1. 댓글 조회
 //        List<Comment> comments = commentRepository.findByArticleId(articleId);
@@ -38,6 +39,7 @@ public class CommentService {
                 .collect(Collectors.toList());  // 스트림 데이터를 리스트 자료형으로 변환
     }
 
+    //댓글 생성
     @Transactional
     public CommentDto create(Long articleId, CommentDto dto) {
         // 1. 게시글 조회 및 예외 발생
@@ -49,5 +51,19 @@ public class CommentService {
         Comment created = commentRepository.save(comment);
         // 4. DTO 변환 후 반환
         return CommentDto.createCommentDto(created);
+    }
+
+    //댓글 수정
+    @Transactional
+    public CommentDto update(Long id, CommentDto dto) {
+        // 1. 댓글 조회 및 예외 발생
+        Comment target = commentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("댓글 수정실패! : 대상 댓글이 없습니다."));
+        // 2. 댓글 수정
+        target.patch(dto);
+        // 3. DB갱신
+        Comment updated = commentRepository.save(target);
+        // 4. 댓글 엔티티 -> DTO 변환 후 반환
+        return CommentDto.createCommentDto(updated);
     }
 }
