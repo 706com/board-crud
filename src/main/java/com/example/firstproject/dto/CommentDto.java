@@ -16,7 +16,7 @@ public class CommentDto {
 
     private Long id;
 
-    @JsonProperty("article_id") //클라이언트가 쓸 요청 변수명
+//    @JsonProperty("article_id") //클라이언트가 쓸 요청 변수명
     private Long articleId;
 
     private String nickname;
